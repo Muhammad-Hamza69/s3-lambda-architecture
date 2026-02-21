@@ -1,0 +1,5 @@
+lambda = fn-stock-prices-qh
+role = role-stock-prices-qh
+s3 = s3-stock-prices-qh
+    sub-directory = input-data/
+    sub-directory = output-data/
