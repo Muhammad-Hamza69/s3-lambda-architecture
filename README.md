@@ -1,7 +1,12 @@
 # Architecture Diagram
-![a000fb44-5055-4f24-a376-d24651504431](https://github.com/user-attachments/assets/d23945bc-57e5-4e8b-839d-de17eab6f087)
 
-![72a63c09-25ff-4ae4-a7fd-c1a580680d45](https://github.com/user-attachments/assets/9a2df062-8be3-49a4-9f03-da271339dbda)
+<img width="1004" height="424" alt="Untitled Diagram drawio (3)" src="https://github.com/user-attachments/assets/35e6b3d7-457d-4f3b-96b9-2c47122d0b1c" />
+
+If 1000 files are uploaded to S3 at the same time, Lambda can process them concurrently. If more than 1000 events occur simultaneously, Lambda may throttle additional invocations due to concurrency limits, but the events are retried automatically. However, this can introduce latency and throttling. 
+
+<img width="1324" height="464" alt="Untitled Diagram drawio (4)" src="https://github.com/user-attachments/assets/a0cda868-2bbe-4e8d-91d6-36264c3b3a6d" />
+
+To handle high event volumes reliably, it is recommended to use an S3 → SQS → Lambda architecture. When a large number of files (e.g., 10,000) are uploaded to S3, event notifications send messages to SQS. The messages remain in the queue, and Lambda polls the queue and processes them in batches based on available concurrency until all messages are processed.
 
 # Automating-S3-to-Lambda-Triggers
 Step-by-Step Guide to Deploying and Optimizing Your First Lambda Function
